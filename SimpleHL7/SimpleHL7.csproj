@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CB790DC0-42C6-49CA-9771-6F47DAA41FC0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SimpleHL7</RootNamespace>
+    <AssemblyName>SimpleHL7</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Handler\IMessageHandler.cs" />
+    <Compile Include="Handler\ISegmentHandler.cs" />
+    <Compile Include="Handler\StoredProcedureAction.cs" />
+    <Compile Include="IComponent.cs" />
+    <Compile Include="IElement.cs" />
+    <Compile Include="IField.cs" />
+    <Compile Include="Message\BaseField.cs" />
+    <Compile Include="Message\Component.cs" />
+    <Compile Include="Message\ComponentFactory.cs" />
+    <Compile Include="Message\Context.cs" />
+    <Compile Include="Message\EmptyComponent.cs" />
+    <Compile Include="Message\EmptyField.cs" />
+    <Compile Include="Message\EmptyFieldItem.cs" />
+    <Compile Include="Message\FieldFactory.cs" />
+    <Compile Include="Message\FieldItem.cs" />
+    <Compile Include="Message\IHL7Message.cs" />
+    <Compile Include="Message\Message.cs" />
+    <Compile Include="Message\MessageException.cs" />
+    <Compile Include="Message\NonRepeatingField.cs" />
+    <Compile Include="Message\RepeatingField.cs" />
+    <Compile Include="Message\Segment.cs" />
+    <Compile Include="Message\SegmentGroup.cs" />
+    <Compile Include="Model\ModelElement.cs" />
+    <Compile Include="Model\ModelFactory.cs" />
+    <Compile Include="Model\ModelMessage.cs" />
+    <Compile Include="Model\ModelSegment.cs" />
+    <Compile Include="Model\ModelSegmentGroup.cs" />
+    <Compile Include="Model\ModelSet.cs" />
+    <Compile Include="Parser\DelimitedMessageParser.cs" />
+    <Compile Include="Parser\IHL7MessageParser.cs" />
+    <Compile Include="Parser\ParserSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Handlers.xml" />
+    <Content Include="Resources\MessageStructures.xml" />
+    <Content Include="Resources\ORM.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Interfaces.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

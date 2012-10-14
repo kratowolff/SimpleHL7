@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ModelSet>
+	<Message name="ORU" version="2.3">
+		<Items>
+			<Segment name="MSH" isRequired="true" canRepeat="false" />
+			<Segment name="PID" isRequired="true" canRepeat="false" />
+			<Segment name="ORC" isRequired="true" canRepeat="false" />
+			<SegmentGroup name="OBR_NTE" isRequired="true" canRepeat="false">
+				<Items>
+					<Segment name="OBR" isRequired="true" canRepeat="false" />
+					<Segment name="NTE" isRequired="false" canRepeat="true" />
+					<SegmentGroup name="OBX_NTE" isRequired="true" canRepeat="true">
+						<Items>
+							<Segment name="OBX" isRequired="true" canRepeat="false" />
+							<Segment name="NTE" isRequired="false" canRepeat="true" />
+						</Items>
+					</SegmentGroup>
+				</Items>
+			</SegmentGroup>
+		</Items>
+	</Message>
+
+	<Message name="SIU" version="2.3">
+		<Items>
+			<Segment name="MSH" isRequired="true" canRepeat="false" />
+			<Segment name="SCH" isRequired="true" canRepeat="false" />
+			<Segment name="NTE" isRequired="false" canRepeat="true" />
+			<Segment name="PID" isRequired="true" canRepeat="false" />
+			<Segment name="ROL" isRequired="false" canRepeat="true" />
+			<Segment name="PV1" isRequired="true" canRepeat="false" />
+			<Segment name="PV2" isRequired="false" canRepeat="false" />
+			<Segment name="OBX" isRequired="false" canRepeat="true" />
+			<SegmentGroup name="RGS_Group" isRequired="true" canRepeat="true">
+				<Items>
+					<Segment name="RGS" isRequired="true" canRepeat="false" />
+					<Segment name="AIS" isRequired="true" canRepeat="false" />
+					<Segment name="NTE" isRequired="false" canRepeat="true" />
+					<SegmentGroup name="AIG_Group" isRequired="false" canRepeat="true">
+						<Items>
+							<Segment name="AIG" isRequired="true" canRepeat="false" />
+						<Segment name="NTE" isRequired="false" canRepeat="true" />
+						</Items>
+					</SegmentGroup>
+					<SegmentGroup name="AIP_Group" isRequired="true" canRepeat="true">
+						<Items>
+							<Segment name="AIP" isRequired="true" canRepeat="false" />
+							<Segment name="NTE" isRequired="false" canRepeat="true" />
+						</Items>
+					</SegmentGroup>
+				</Items>
+			</SegmentGroup>
+		</Items>
+	</Message>
+</ModelSet>
+
+
+<!--
+
+When we hit a segment in the message that isn't in the model (ex, if we hit a EVN after the MSH),
+then...
+
+1. If the next segment in the model is required, we simply skip the segment in the message.  Ex,
+since PID is next in the model we skip EVN in the message because we know we need to wait until we
+find a PID in the message or fail trying.
+
+2. If the next segment in the model is optional, then we need to be able to "peek ahead" in the
+model to see if we can match something to the message.  So we save a reference to where we're at
+in the model and then move to the next segment.  Keep peeking forward in the model until we get 
+to a segment that is required.  If we hit one and still haven't matched then we move back to where 
+we started in the model and move forward one segment in the message instead.
+
+	SIU	General Schedule Request Message
+	MSH	Message Header
+	SCH	Schedule Activity Information
+	[ { NTE } ]	Notes and Comments
+	PID	Patient Identification
+	[ {ROL} ]	Role Information
+	PV1	Patient Visit Information
+	[ PV2 ]	Patient Visit – Additional Info
+	[ { OBX } ]	Observation/Result
+	{ RGS
+	AIS	Appointment Info. - Service
+	[ { NTE } ]	Notes and Comments
+	[ { AIG	Appt. Info. - General Resource
+	[ { NTE } ]	Notes and Comments
+	}]
+	[ { AIP	Appointment Info. - Personnel
+	[ { NTE } ]	Notes and Comments
+	}]}
+
+<Message name="ADT" version="2.3">
+		<Items>
+			<Segment name="MSH" isRequired="true" />
+			<Segment name="PID" isRequired="true" />
+			<SegmentGroup name="OBR_NTE" isRequired="true">
+				<Items>
+					<Segment name="OBR" isRequired="true" />
+					<Segment name="NTE" isRequired="false" />
+				</Items>
+			</SegmentGroup>
+		</Items>
+	</Message>
+	
+	<message type="ORM">
+		<segment name="MSH" maxRepeat="1" />
+		<segment name="PID" maxRepeat="1" />
+		<segment name="PV1" maxRepeat="1" />
+		<segment name="ORC" maxRepeat="1" />
+		<segmentGroup maxRepeat="+">
+			<segment name="OBR" maxRepeat="1" />
+			<segment name="NTE" maxRepeat="*" />
+		</segmentGroup>
+	</message>
+
+
+	<message type="ORU">
+		<segment name="MSH" maxRepeat="1" />
+		<segment name="PID" maxRepeat="1" />
+		<segment name="PV1" maxRepeat="1" />
+		<segment name="ORC" maxRepeat="1" />
+		<segmentGroup name="OBRGroup" maxRepeat="+">
+			<segment name="OBR" maxRepeat="1" />
+			<segment name="NTE" maxRepeat="*" />
+			<segmentGroup name="OBXGroup" maxRepeat="+">
+				<segment name="OBX" maxRepeat="1" />
+				<segment name="NTE" maxRepeat="*" />
+			</segmentGroup>
+		</segmentGroup>
+	</message>
+
+-->

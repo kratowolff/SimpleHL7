@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<messageHandlers>
+
+	<parseCompleteTrigger parseType="Segment" key="MSH">
+		<sqlCommandMapping messageType="*" messageEvent="*" commandType="StoredProcedure" command="HL7.InsertSegment_MSH" >
+			<parameterMapping name="@MSH_3_SendApplication" type="varchar(16)" segment="this" field="3" />
+		</sqlCommandMapping>
+	</parseCompleteTrigger>
+	
+	
+</messageHandlers>
