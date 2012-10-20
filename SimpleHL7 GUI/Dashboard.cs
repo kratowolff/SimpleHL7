@@ -81,38 +81,65 @@ NTE|||
 		private void BuildHL7Fields(Segment parentSegment, IField parentField, 
 			TreeNode parentNode, TreeView tv)
 		{
-
 			IField[] fields;
+			int i;
 
 			if (parentField == null && parentSegment.Fields.Any())
+			{
 				fields = parentSegment.Fields;
+				i = 0;
+			}
 			else if (parentField is RepeatingField)
+			{
 				fields = parentField.Fields;
+				i = 1;
+			}
 			else
 				return;
 
 			var newNodes = new List<TreeNode>(fields.Length);
-			int i = 1;
+			
 
 			foreach (IField f in fields)
 			{
 				TreeNode node = new TreeNode();
 				if (f is RepeatingField)
 				{
-					node.Text = "Repeating Field...";
 					BuildHL7Fields(parentSegment, f, node, tv);
+
 				}
-				else if (f is NonRepeatingField)
+				else if (f.Components.Length > 1)
+					BuildHL7Components(parentSegment, f, node, tv);
+
+				if (parentField == null)
+					node.Text = String.Concat(parentSegment, "-", i, ": ", f.Value);
+				else
 					node.Text = f.Value;
-				else if (f is EmptyField)
-					node.Text = "EMPTY";
-					
-				newNodes.Add(node);
+
+				if (i > 0)
+					newNodes.Add(node);
+	
+				i++;
 			}
 
 			parentNode.Nodes.AddRange(newNodes.ToArray());
 
 		}
+
+
+		private void BuildHL7Components(Segment parentSegment, IField parentField,
+			TreeNode parentNode, TreeView tv)
+		{
+			var newNodes = new List<TreeNode>(parentField.Components.Length);
+
+			foreach (SimpleHL7.IComponent c in parentField.Components)
+			{
+				TreeNode node = new TreeNode(c.Value);
+				newNodes.Add(node);
+			}
+			parentNode.Nodes.AddRange(newNodes.ToArray());
+		}
+
 
 		private void RawHL7TextBox_TextChanged(object sender, EventArgs e)
 		{
