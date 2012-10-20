@@ -15,6 +15,7 @@ namespace SimpleHL7.Message
 
 		// Encoding Characters
 		// Default these to the recommended values
+		private String _EncodingCharacters = "^~\\&";
 		private Char _FieldSeparator = '|';
 		private Char _ComponentSeparator = '^';
 		private Char _FieldRepeatSeparator = '~';
@@ -41,6 +42,11 @@ namespace SimpleHL7.Message
 		private Boolean _LazyParseFields = true;
 		private Boolean _LasyParseComponents = false;
 
+
+		public String EncodingCharacters
+		{
+			get { return _EncodingCharacters; }
+		}
 
 		/// <summary>
 		/// Gets the character used to separate segments.
@@ -148,6 +154,8 @@ namespace SimpleHL7.Message
 				throw new MessageException("Unexpected number of encoding characters.");
 
 			this._FieldSeparator = fieldSeparator;
+			this._EncodingCharacters = encodingChars;
+
 			this._ComponentSeparator = encodingChars[0];
 			this._FieldRepeatSeparator = encodingChars[1];
 			this._EscapeCharacter = encodingChars[2];

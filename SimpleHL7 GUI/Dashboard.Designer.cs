@@ -37,6 +37,7 @@
 			this.HL7TreeView = new System.Windows.Forms.TreeView();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.ParseButton = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -45,6 +46,7 @@
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
+			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
@@ -140,11 +142,22 @@
 			// panel2
 			// 
 			this.panel2.BackColor = System.Drawing.SystemColors.Highlight;
+			this.panel2.Controls.Add(this.ParseButton);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel2.Location = new System.Drawing.Point(0, 0);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(753, 50);
 			this.panel2.TabIndex = 0;
+			// 
+			// ParseButton
+			// 
+			this.ParseButton.Location = new System.Drawing.Point(40, 13);
+			this.ParseButton.Name = "ParseButton";
+			this.ParseButton.Size = new System.Drawing.Size(75, 23);
+			this.ParseButton.TabIndex = 0;
+			this.ParseButton.Text = "Parse";
+			this.ParseButton.UseVisualStyleBackColor = true;
+			this.ParseButton.Click += new System.EventHandler(this.ParseButton_Click);
 			// 
 			// Dashboard
 			// 
@@ -164,6 +177,7 @@
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
+			this.panel2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -179,6 +193,7 @@
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TextBox RawHL7TextBox;
 		private System.Windows.Forms.TreeView HL7TreeView;
+		private System.Windows.Forms.Button ParseButton;
 	}
 }
 

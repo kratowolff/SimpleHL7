@@ -46,15 +46,22 @@ OBX|3||
 NTE|||
 ";
 
-			var parser = new DelimitedMessageParser();
-			DelimitedMessage msg = (DelimitedMessage) parser.ParseMessage(RawHL7TextBox.Text);
-
-			BuildHL7ElementsRecursive(msg, null, HL7TreeView);
-
 		}
 
 
+		private void ParseButton_Click(object sender, EventArgs e)
+		{
+			HL7TreeView.Nodes.Clear();
+			BuildHL7Tree();
+		}
 
+		private void BuildHL7Tree()
+		{
+			var parser = new DelimitedMessageParser();
+			DelimitedMessage msg = (DelimitedMessage)parser.ParseMessage(RawHL7TextBox.Text);
+
+			BuildHL7ElementsRecursive(msg, null, HL7TreeView);
+		}
 
 		private void BuildHL7ElementsRecursive(IElement parentElement, TreeNode parentNode, TreeView tv)
 		{
@@ -150,5 +157,7 @@ NTE|||
 		{
 
 		}
+
+
 	}
 }
