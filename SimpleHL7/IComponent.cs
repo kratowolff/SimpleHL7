@@ -9,7 +9,6 @@ namespace SimpleHL7
 	public interface IComponent
 	{
 		String Value { get; }
-
 	}
 
 }
